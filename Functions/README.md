@@ -1,5 +1,5 @@
 ## Optimization and functions in Python
-This module of the course covers numerical optimization methods and applies them to problems in Python using the SciPy Package.
+This module of the course covers numerical optimization methods and applies them to problems in Python using the SciPy Package.  We apply these techniques to the estimation of structural models of earnings dynamics via Generalized Method of Moments and estimating a model of returns to education with a likelihood function we define.
 
 ## Tutorials to get you started
 
@@ -9,7 +9,7 @@ This module of the course covers numerical optimization methods and applies them
 ## Notebooks we worked through in class
 
 * [Optimization](https://github.com/jdebacker/CompEcon_Fall17/blob/master/Functions/Optimization.ipynb)
-* [Estimating and error components model via GMM](https://github.com/jdebacker/CompEcon_Fall17/blob/master/Functions/ECM_Estimation.ipynb)
+* [Estimating an error components model via GMM](https://github.com/jdebacker/CompEcon_Fall17/blob/master/Functions/ECM_Estimation.ipynb)
 
 ## Useful Links
 
