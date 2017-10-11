@@ -1,0 +1,63 @@
+\documentclass[12pt]{article}
+\usepackage{cite}
+\usepackage{apacite}
+\usepackage{amsmath}
+
+\begin{document}
+\section{Methodology}
+\paragraph{}
+In problem set 4, I computed maximum score estimator(MSE) for radio station mergers in 2007 and 2008. The original dataset contains real mergers happened in sample periods. However, MSE requires both factual(real) and conterfactual matches. MSE assumes factual mergers offer utility higher than any other counterfactual matches. The indication function used to comparing revealed utility is the following:
+	
+\begin{equation}
+I[f(b,t)+f(b',t')>f(b,t')+f(b',t)]
+\end{equation}
+
+	I[.]=1 if the inequality is true, and I[.]=0 if it is false. 
+	In this problem set, I have two utility functions, they are:
+\begin{equation}
+f_m(b,t)=x_{1bm}y_{1tm}+\alpha x_{2bm}y_{1tm}+\beta distance_{btm}+\epsilon_{btm}
+\end{equation}
+\begin{equation}
+f_m(b,t)=\delta x_{1bm}y_{1tm}+\alpha x_{2bm}y_{1tm}+\gamma HHI_{btm}+\beta distance_{btm}+\epsilon_{btm}
+\end{equation}
+
+	Then, I calculated the total score as the following:
+
+\begin{equation}
+total score=\sum\limits_{y=year}\sum\limits_{b=1}^{my-1}\sum\limits_{b'=b+1}^{my} I[.]
+\end{equation}
+
+	Here, y is year, which represents the merger market for each year. b is the buyer. my is the number of mergers in a given year, and b' and t' represent counterfactual buyers and targets, respectively. 
+	Finally, I used differential\_evolution function in scipy to find the coefficients that maximize my score.
+\section{results}
+\paragraph{}
+With bound(-1,1), the result for utility model 1 is:
+\begin{center}
+	\begin{tabular}{||c c c ||} 
+		\hline
+		Year & $\delta$ & $\alpha$ \\ [0.5ex] 
+		\hline\hline
+		2007 & -0.3935 & -0.8697  \\ 
+		 \hline
+		2008 & -0.5144 & -0.7278  \\ [1ex] 
+		\hline
+	\end{tabular}
+\end{center}
+
+I get different coefficients with different bounds--this makes sense because this model is a ordinal model, which means by coefficients, we can tell how do variables influence utility but we can not know by how much. Therefore, the results suggest that the intersection term, $x_{2bm}y_{1tm}$, which means buyers ownerships and the population in range of targets, respectively. This term has negative coefficient for both 2007 and 2008. This means that for buyers who are owned by corporations, targets with large population coverage yield negative utility. This means in merger and acquisition, such targets are less attractive for buyers owned by corporations. 
+The distance between buyers and targets, $distance_{btm}$, also has a negative coefficients in both 2007 and 2008. This is intuitive: the far the buyers and targets are, the less utility would be generated from the merger. 
+The result for utility model 2 with bounds (-1,1) for all variables is presented below:
+\begin{center}
+	\begin{tabular}{||c c c c c ||} 
+		\hline
+		Year & $\delta$ & $\alpha$ &$\gamma$ & $\beta$\\ [0.5ex] 
+		\hline\hline
+		2007 & 8.285e-06 &6.186e-01 &2.432e-01    & -9.476e-01  \\ 
+		\hline
+		2008 & 3.931e-06 & 1.775e-04 &8.370e-02   &-7.452e-01   \\ [1ex] 
+		\hline
+	\end{tabular}
+\end{center}
+
+From the table above, we can see that the interaction term, $x_{1bm}y_{1bm}$, has positive but very small coefficient. This means that the number of stations of buyers and the population covered by the targets yield positive uitility but little--buyers and targets barely made decisions based on this interaction variable. While I am not surprised to see the coefficient $\beta$ is still nagetive, $\alpha$ becomes positive and smaller in magnitude in this model. It suggests that we might be wrong to set $\delta$ to be one in the first model: too much variation in the utility function of $x_{2bm}y_{1tm}$ is attributed to $x_{1bm}y_{1bm}$ which renders the underestimation of $\alpha$. Lastly, it seems that higher concentraion in the radio industry positively contributes to the merger and acquisition decisions. 
+\end{document}
